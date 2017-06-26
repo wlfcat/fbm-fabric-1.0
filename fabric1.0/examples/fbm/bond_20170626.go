@@ -101,7 +101,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	}
 	
 	if args[0] == "bond" {
-		return shim.Error("Unknown function call")
+		return t.bond(stub, args)
 	}
 	
 	if arg[0] == "order" {
@@ -209,7 +209,6 @@ func (t *SimpleChaincode) delete(stub shim.ChaincodeStubInterface, args []string
 
 // Query callback representing the query of a chaincode
 func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-
 	var A string // Entities
 	var err error
 
@@ -235,6 +234,14 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string)
 	fmt.Printf("Query Response:%s\n", jsonResp)
 	return shim.Success(Avalbytes)
 }
+
+func (t *SimpleChaincode) bond(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	var cmdTyp = arg[0]
+	var cmdJson = arg[1]
+	
+	return shim.Success(cmdJson)
+}
+
 
 func main() {
 	err := shim.Start(new(SimpleChaincode))
