@@ -99,6 +99,37 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		// Deletes an entity from its state
 		return t.move(stub, args)
 	}
+	
+	if args[0] == "bond" {
+		return shim.Error("Unknown function call")
+	}
+	
+	if arg[0] == "order" {
+		return shim.Error("Unknown function call")
+	}
+	
+	if arg[0] == "quote" {
+		return shim.Error("Unknown function call")
+	}
+	
+	if arg[0] == "org" {
+		return shim.Error("Unknown function call")
+	}
+	
+	if arg[0] == "user" {
+		return shim.Error("Unknown function call")
+	}
+	
+	if arg[0] == "settle" {
+		return shim.Error("Unknown function call")
+	}
+	
+	if arg[0] == "hold" {
+		return shim.Error("Unknown function call")
+	}
+	
+	
+	
 	return shim.Error("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'")
 }
 
