@@ -144,13 +144,21 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 func (t *SimpleChaincode) put(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	var key = args[1]
 	var val = args[2]
-
-	err := stub.PutState(key, []byte(val))
+	var err
+	var xxval
+	
+	xxval, err = stub.GetState(key)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-        return shim.Success(nil);
+	err = stub.PutState(key, []byte(val))
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+	
+	
+        return shim.Success(xxval);
 }
 
 func (t *SimpleChaincode) get(stub shim.ChaincodeStubInterface, args []string) pb.Response {
