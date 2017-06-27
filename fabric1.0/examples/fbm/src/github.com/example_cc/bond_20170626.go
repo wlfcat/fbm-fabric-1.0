@@ -128,9 +128,40 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return shim.Error("Unknown function call")
 	}
 	
+	if args[0] == "put" {
+		return t.put(stub, args)
+	}
+	
+	if args[0] == "get" {
+		return t.get(stub, args)
+	}
+	
 	
 	
 	return shim.Error("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'")
+}
+
+func (t *SimpleChaincode) put(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	var key = args[1]
+	var val = args[2]
+
+	err = stub.PutState(key, []byte(val))
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+        return shim.Success(nil);
+}
+
+func (t *SimpleChaincode) get(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	var key = args[1]
+
+	val, err := stub.GetState(key)
+	if err != nil {
+		return shim.Error("Failed to get state")
+	}
+
+        return shim.Success(val);
 }
 
 func (t *SimpleChaincode) move(stub shim.ChaincodeStubInterface, args []string) pb.Response {
