@@ -99,37 +99,6 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		// Deletes an entity from its state
 		return t.move(stub, args)
 	}
-	
-	if args[0] == "bond" {
-		return t.bond(stub, args)
-	}
-	
-	if arg[0] == "order" {
-		return shim.Error("Unknown function call")
-	}
-	
-	if arg[0] == "quote" {
-		return shim.Error("Unknown function call")
-	}
-	
-	if arg[0] == "org" {
-		return shim.Error("Unknown function call")
-	}
-	
-	if arg[0] == "user" {
-		return shim.Error("Unknown function call")
-	}
-	
-	if arg[0] == "settle" {
-		return shim.Error("Unknown function call")
-	}
-	
-	if arg[0] == "hold" {
-		return shim.Error("Unknown function call")
-	}
-	
-	
-	
 	return shim.Error("Unknown action, check the first argument, must be one of 'delete', 'query', or 'move'")
 }
 
@@ -209,6 +178,7 @@ func (t *SimpleChaincode) delete(stub shim.ChaincodeStubInterface, args []string
 
 // Query callback representing the query of a chaincode
 func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+
 	var A string // Entities
 	var err error
 
@@ -234,14 +204,6 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string)
 	fmt.Printf("Query Response:%s\n", jsonResp)
 	return shim.Success(Avalbytes)
 }
-
-func (t *SimpleChaincode) bond(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	var cmdTyp = arg[0]
-	var cmdJson = arg[1]
-	
-	return shim.Success(cmdJson)
-}
-
 
 func main() {
 	err := shim.Start(new(SimpleChaincode))
