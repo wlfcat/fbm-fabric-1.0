@@ -243,7 +243,7 @@ func (t *SimpleChaincode) bond(stub shim.ChaincodeStubInterface, args []string) 
 	if opeTyp == "add" {
 		stub.PutState(cmdTyp,bytJson)
 	} else {
-		bytJson = stub.GetState(cmdTyp)
+		bytJson,err := stub.GetState(cmdTyp)
 	}
 	
 	return shim.Success(bytJson)
