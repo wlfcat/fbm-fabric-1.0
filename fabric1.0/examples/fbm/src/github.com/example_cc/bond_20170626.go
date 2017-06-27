@@ -145,6 +145,7 @@ func (t *SimpleChaincode) put(stub shim.ChaincodeStubInterface, args []string) p
 	var key string = args[1]
 	var val string = args[2]
 	var res string
+	var err error
         fmt.Printf("key= %s, val = %s\n", key, val)
 	
 	Avalbytes, err := stub.GetState(key)
@@ -153,7 +154,7 @@ func (t *SimpleChaincode) put(stub shim.ChaincodeStubInterface, args []string) p
 	}
 	res = string(Avalbytes) + val
 	// Write the state to the ledger
-	err := stub.PutState(key, []byte(res))
+	err = stub.PutState(key, []byte(res))
 	if err != nil {
 		return shim.Error(err.Error())
 	}
