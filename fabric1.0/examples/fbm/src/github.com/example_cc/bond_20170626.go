@@ -145,7 +145,7 @@ func (t *SimpleChaincode) put(stub shim.ChaincodeStubInterface, args []string) p
 	var key = args[1]
 	var val = args[2]
 
-	err = stub.PutState(key, []byte(val))
+	err := stub.PutState(key, []byte(val))
 	if err != nil {
 		return shim.Error(err.Error())
 	}
