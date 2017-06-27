@@ -236,9 +236,16 @@ func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string)
 }
 
 func (t *SimpleChaincode) bond(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-//	var cmdTyp = args[0]
-	var cmdJson = args[1]
-        var bytJson = []byte(cmdJson)	
+	var cmdTyp = args[0]
+	var opeTyp = args[1]
+	var cmdJson = args[2]
+        var bytJson = []byte(cmdJson)
+	if opeTyp == "add" {
+		stub.PutState(cmdTyp,bytJson)
+	} else {
+		bytJson = stub.GetState(cmdTyp)
+	}
+	
 	return shim.Success(bytJson)
 }
 
